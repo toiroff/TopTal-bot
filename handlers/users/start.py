@@ -37,30 +37,8 @@ async def phone_number(message: types.Message):
 
 
 # Buyurtmachi ----------------------------------------------------------------------
-@dp.message_handler(text="📝 Mening  buyurtmalarim")
-async def bot_start(message: types.Message):
-    try:
-        user_id = message.from_user.id
-        id_send = db.select_zakaz(tg_id=user_id)
-        for idsend in id_send:
-            sql_id = idsend[1]
-            await message.answer(f"{sql_id}",reply_markup=frilans)
-    except:
-        pass
-    await message.answer(f"<b>Sizning buyurtmalaringiz</b>" , reply_markup=frilans)
 
-@dp.message_handler(text="📝 Mening buyurtmalarim")
-async def bot_start(message: types.Message):
-    try:
-        id = db.select_zakaz(tg_id=message.from_user.id)
-        user_id = message.from_user.id
-        id_send = db.select_zakaz(tg_id=user_id)
-        for idsend in id_send:
-            sql_id = idsend[1]
-            await message.answer(f"{sql_id}",reply_markup=buyurtma)
-    except:
-        pass
-    await message.answer(f"<b>Sizning buyurtmalaringiz</b>" , reply_markup=buyurtma)
+
 
 
 @dp.message_handler(text="📥 Buyurtma olish")
@@ -77,7 +55,7 @@ async def bot_start(message: types.Message, state:FSMContext):
                                   f"Proyektning ta'rifi: {s[2]}\n\n" \
                                   f"Proyektning narxi: {s[3]} sum\n\n", reply_markup=inline_tugma)
 
-
+    await message.answer('Tanlang',reply_markup=olish)
 
 
 
@@ -96,7 +74,7 @@ async def bot_start(message: types.Message):
 @dp.message_handler(text="✅ Mening takliflarim")
 async def bot_start(message: types.Message):
     try:
-        user_id = messagemessage.from_user.id
+        user_id = message.from_user.id
         id_send = db.select_taklifs(Tid=user_id)
         for idsend in id_send:
             sql_id = idsend[2]

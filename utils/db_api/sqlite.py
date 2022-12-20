@@ -226,6 +226,9 @@ class Database:
         sql, parameters = self.format_args(sql, kwargs)
 
         return self.execute(sql, parameters=parameters, fetchone=True)
+
+    def delete(self):
+        self.execute("DELETE FROM zakaz WHERE TRUE", commit=True)
 def logger(statement):
     print(f"""
 _____________________________________________________        

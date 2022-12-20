@@ -11,6 +11,7 @@ from keyboards.default.menu import *
 async def bot_echo(message:CallbackQuery,state:FSMContext):
         user_id = message.from_user.id
         malumotid = str(message.data)
+        await state.update_data({'id':malumotid})
         print(malumotid)
         useer=message.from_user.username
         ms_id = malumotid
@@ -71,6 +72,7 @@ async def bot_echo(message: types.Message, state: FSMContext):
 
     ekranga_chiqarish = f"{takliff}\n\n" \
                         f"<b>Proyektning narxi:</b> {narxi}"
+    id = malumot.get('id')
     try:
         id_send = db.select_taklif(id=ms_id)
         for idsend in id_send:
@@ -80,7 +82,7 @@ async def bot_echo(message: types.Message, state: FSMContext):
                               zakaz=f"#{ms_id} Buyurtma uchun taklif\n\n{ekranga_chiqarish}\n\n<b>Frilanserga Aloqa : </b> @{ms_us}", tg_id=sql_id)
             inline_tugma = InlineKeyboardMarkup(
                 inline_keyboard=[[InlineKeyboardButton(text="Frilanserga Aloqa", url=f"https://t.me/{ms_us}")]])
-            await bot.send_message(chat_id=f"{malumotid}", text=f"#{ms_id} Buyurtmangiz uchun taklif\n\n{ekranga_chiqarish}",reply_markup=inline_tugma)
+            await bot.send_message(chat_id=f"{id}", text=f"#{ms_id} Buyurtmangiz uchun taklif\n\n{ekranga_chiqarish}",reply_markup=inline_tugma)
     except:
         pass
     await bot.send_message(chat_id=user_id,text=f"#{ms_id} <b>Buyurtma bo'yicha taklif buyurtmachiga yuborildi</b>\n\n<i>Taklifingizni Buyurtmachi qabul qilsa sizga aloqa o'rnatadi.</i>\n\n{ekranga_chiqarish}",reply_markup=frilans)
