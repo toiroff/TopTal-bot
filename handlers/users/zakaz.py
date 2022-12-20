@@ -123,7 +123,7 @@ async def select_tasdiq(message: CallbackQuery,state:FSMContext):
     # project_nomi = data.get("qisqacha")
     # project_tarfi = data.get('project_narxi')
     # project_narxi = data.get("phone")
-
+  
     try:
         user_id = message.from_user.id
         db.zakaz_qoshish(kategoriya=project_name,nomi=project_nomi,tarifi=project_tarfi,narxi=project_narxi,

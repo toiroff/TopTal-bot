@@ -77,6 +77,10 @@ async def j(message : Message, state: FSMContext):
                          "<i> Bajarib bo'lgach botni kodini shu xabardan keyin yuboring va adminlar tekshirib sizning balingiz va darajangizni juniorga ko'tarishadi \nBu darajaga buyurtmachilar ko'p ahamiyat berishadi va sizga ish berish imkoniyati ortadi.</i>")
     await bot.send_document(chat_id=message.from_user.id,document="https://t.me/UMARForever/43")
     await state.finish()
+@dp.message_handler(text="🔙 Orqaga")
+async def bots(message: Message, state:FSMContext):
+
+    await message.answer("Yo'nalish tanlang va mashqlardan muvaffaqqiyatli o'ting✅",reply_markup=backmenu)
 
 # DARAJA 2----------------------------------------------------------------------------------------
 @dp.message_handler(state=start.entry,text="2-daraja")

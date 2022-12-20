@@ -32,4 +32,4 @@ async def bot_echo(message: types.Message, state: FSMContext):
                                       f"Proyektning nomi: {malumot[1]}\n\n" \
                                       f"Proyektning ta'rifi: {malumot[2]}\n\n" \
                                       f"Proyektning narxi: {malumot[3]} sum\n\n",reply_markup=inline_tugma)
-
+        await state.finish()
