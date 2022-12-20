@@ -121,14 +121,6 @@ class Database:
         """
         return self.execute(sql, fetchall=True)
 
-    def update_ism(self, id, nick):
-        # SQL_EXAMPLE = "UPDATE Users SET email=mail@gmail.com WHERE id=12345"
-
-        sql = f"""
-        UPDATE Users SET nick_name=? WHERE id=?
-        """
-        return self.execute(sql, parameters=(nick, id), commit=True)
-
 
 
     def create_table_zakaz(self):
@@ -142,13 +134,13 @@ class Database:
 """
         self.execute(sql, commit=True)
 
-    def zakaz_qoshish(self,zakaz: str=None, tg_id: str=None):
+    def zakaz_qoshish(self,nomi:str=None,tarifi:str=None,narxi:int=None,kategoriya:str=None,user_id:int=None):
         # SQL_EXAMPLE ="INSERT INTO myfiles_teacher(id,name,email)VALUES(1,"john","john@hgmail.com")"
 
         sql="""
-        INSERT INTO zakaz ( zakaz, tg_id ) VALUES(?, ?)
+        INSERT INTO zakaz (nomi,narxi,tarifi,kategoriya,user_id) VALUES(?, ?, ?, ?, ?)
         """
-        self.execute(sql, parameters=(zakaz, tg_id), commit=True)
+        self.execute(sql, parameters=(nomi,narxi,tarifi,kategoriya,user_id), commit=True)
 
     def select_zakaz(self, **kwargs):
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
@@ -217,7 +209,23 @@ class Database:
          SET kategoriya=? WHERE id=?
         """
         return self.execute(sql, parameters=(kategoriya, id), commit=True)
+# About me ------------------------------------------------------------------------------
+    def select_daraja(self, **kwargs):
+        # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
+        sql = " SELECT * FROM royxat WHERE "
+        sql, parameters = self.format_args(sql, kwargs)
 
+        return self.execute(sql, parameters=parameters, fetchone=True)
+
+    def buyurtma_raqami(self):
+        return self.execute("SELECT COUNT(*) FROM zakaz;", fetchone=True)
+
+    def filter(self, **kwargs):
+        # SQL_EXAMPLE = "SELECT * FROM myfiles_teacher where id=1 AND Name='John'"
+        sql = "SELECT * FROM zakaz WHERE "
+        sql, parameters = self.format_args(sql, kwargs)
+
+        return self.execute(sql, parameters=parameters, fetchone=True)
 def logger(statement):
     print(f"""
 _____________________________________________________        

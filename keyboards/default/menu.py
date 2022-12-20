@@ -12,7 +12,8 @@ menuuz = ReplyKeyboardMarkup(
             KeyboardButton(text="👤 Men buyurtmachiman")
         ],
         [
-            KeyboardButton(text="📈 Daraja oshirish")
+            KeyboardButton(text="📈 Tajriba oshirish"),
+            KeyboardButton(text="💎 Bal Nima ?")
         ],
         [
             KeyboardButton(text="💼 Iste'dodlar"),
@@ -21,9 +22,7 @@ menuuz = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True
 )
-@dp.message_handler(text="💼 Vakasiyalar/Vakansiya joylashtirish")
-async def bot_start(message: types.Message):
-    await message.answer(f"https://t.me/mistruz" , reply_markup=menuuz)
+
 @dp.message_handler(text="🧑🏻‍💻 Men Frilanserman")
 async def bot_start(message: types.Message):
     await message.answer(f"<b>🧑🏻‍💻 Men Frilanserman</b>" , reply_markup=frilans)
@@ -70,16 +69,30 @@ sozlamar = ReplyKeyboardMarkup(
 @dp.message_handler(text="🔙Back")
 async def bot_start(message: types.Message):
     await message.answer(f"<b>🧑🏻‍💻 Men Frilanserman</b>" , reply_markup=frilans)
+
+# Buyurtmachi ----------------------------------------------------------------------------
 buyurtma=ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text='📝 Mening buyurtmalarim'),KeyboardButton(text='📥 Buyurtma yaratish')],
         [KeyboardButton(text='✅ Freelancer takliflar')],
-        [KeyboardButton(text='🔝 Asosiy Menyu')]
+        [
+            KeyboardButton(text="Sozlamalar⚙")
+        ],[KeyboardButton(text='🔝 Asosiy Menyu')]
 
     ],
     resize_keyboard=True
 )
-
+sozlamarb = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="®Men haqimda️")
+        ],
+        [
+            KeyboardButton(text="🔙Back"),
+            KeyboardButton(text="🔝 Asosiy Menyu")
+        ]
+    ],resize_keyboard=True
+)
 
 Buyurtma = ReplyKeyboardMarkup(
     keyboard=[
@@ -90,28 +103,7 @@ Buyurtma = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True
 )
-
-#-----------------------------------------------------------------------------------------------------
-
-menuru = ReplyKeyboardMarkup(
-    keyboard=[
-        [KeyboardButton(text="🧑🏻‍💻 Я фрилансер"),KeyboardButton(text="👤 Я заказчик")],
-        [KeyboardButton(text="💼 Вакансии/Разместить вакансии")]
-
-    ],
-    resize_keyboard=True
-)
-
-menuen = ReplyKeyboardMarkup(
-    keyboard=[
-        [KeyboardButton(text="🧑🏻‍💻 I am a freelancer"),KeyboardButton(text="👤 I am a customer")],
-        [KeyboardButton(text="💼 Jobs/Post Jobs")]
-
-    ],
-    resize_keyboard=True
-)
-
-#------------------------------------
+# Buyurtma END ----------------------------------------------------------------------------------------
 
 @dp.message_handler(text="⚙️ Sozlamalar")
 async def bot_start(message: types.Message):

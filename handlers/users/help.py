@@ -7,7 +7,7 @@ from loader import dp,db
 
 @dp.message_handler(CommandHelp())
 async def bot_help(message: types.Message):
-     await message.answer("<b>Buyruqlar:</b> \n/start - Botni ishga tushirish\n/lang - Til tanlash\n/help - Yordam")
+     await message.answer("<b>Buyruqlar:</b> \n/start - Botni ishga tushirish\n/help - Yordam")
 
 
 @dp.message_handler(text="ℹ️ Nega TopTal")

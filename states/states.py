@@ -16,5 +16,10 @@ class taklif (StatesGroup):
 
 class start (StatesGroup):
     entry = State()
+    daraja1 = State()
+    daraja2 = State()
     middle = State()
     expert = State()
+
+class topish(StatesGroup):
+    buyurtma_topish=State()

@@ -2,15 +2,11 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.builtin import CommandStart
 
-from keyboards.default.daraja import daraja
+from keyboards.inline.creator import olish
 from loader import dp, db, bot
-from states.states import start
-from utils.db_api.sqlite import *
 from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
-from keyboards.default.menu import menuuz,menuru, menuen,royxat,buyurtma,frilans
-from  keyboards.inline.lang import laguage, laguageen, laguageru,laguageuz
-ball=10
-langa = f"<b>🌍 Choose a Language :</b>"
+from keyboards.default.menu import menuuz,royxat,buyurtma,frilans
+
 
 @dp.message_handler(CommandStart())
 async def bot_start(message: types.Message):
@@ -21,7 +17,7 @@ async def bot_start(message: types.Message):
             pass
 
         else:
-            await message.answer("<b>NEED WORK botiga xush kelibsiz</b>", reply_markup=menuuz)
+            await message.answer("<b>Top Talants botiga xush kelibsiz</b>", reply_markup=menuuz)
 
     except:
         await message.answer("Bot ishlashi uchun <b>➕ Ro'yxatdan o'tish ➕</b> tugmasini bosin", reply_markup=royxat)
@@ -37,16 +33,10 @@ async def phone_number(message: types.Message):
     except:
         pass
 
-    await message.answer(text="Muvaffaqiyatli SIGNUP dan o'tdingiz",reply_markup=menuuz)
-                   # await start.entry.set()
-
-    # @dp.message_handler(state=start.entry, text="Entry")
-    # async def kirish(message: types.Message, state: FSMContext):
-    #     enrty = message.text
-    #     await state.update_data({'entry': enrty})
-    #     await message.answer(text=f"Top Talant botiga xush kelibsiz\n\nSizning 'lvl'ingiz entry \nBall : {ball}",reply_markup=menuuz)
+    await message.answer(text="Muvaffaqiyatli ro'yhatdan o'tdingiz",reply_markup=menuuz)
 
 
+# Buyurtmachi ----------------------------------------------------------------------
 @dp.message_handler(text="📝 Mening  buyurtmalarim")
 async def bot_start(message: types.Message):
     try:
@@ -62,6 +52,7 @@ async def bot_start(message: types.Message):
 @dp.message_handler(text="📝 Mening buyurtmalarim")
 async def bot_start(message: types.Message):
     try:
+        id = db.select_zakaz(tg_id=message.from_user.id)
         user_id = message.from_user.id
         id_send = db.select_zakaz(tg_id=user_id)
         for idsend in id_send:
@@ -73,14 +64,21 @@ async def bot_start(message: types.Message):
 
 
 @dp.message_handler(text="📥 Buyurtma olish")
-async def bot_start(message: types.Message):
-    users = db.select_random_zakaz()
-    print(users,"buyurtmalar")
-    for user in users:
-        user_id= user[1]
-        ms_id = user[0]
-        inline_tugma = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Taklif kiritish", callback_data=f'taklif{ms_id}')]])
-        await  message.answer(text=f"{user_id}",reply_markup=inline_tugma)
+async def bot_start(message: types.Message, state:FSMContext):
+    malumot = db.select_random_zakaz()
+    print(malumot)
+    for s in malumot:
+        ms_id = s[0]
+        inline_tugma = InlineKeyboardMarkup(
+            inline_keyboard=[[InlineKeyboardButton(text="Taklif kiritish", callback_data=f'taklif{ms_id}')]])
+        await message.answer(text=f"Buyurtma raqami # {s[0]}\n\n" \
+                                  f"Kategoriya: {s[4]}\n\n" \
+                                  f"Proyektning nomi: {s[1]}\n\n" \
+                                  f"Proyektning ta'rifi: {s[2]}\n\n" \
+                                  f"Proyektning narxi: {s[3]} sum\n\n", reply_markup=inline_tugma)
+
+
+
 
 
 @dp.message_handler(text="✅ Freelancer takliflar")
@@ -106,3 +104,8 @@ async def bot_start(message: types.Message):
     except:
         pass
     await message.answer(f"<b>✅ Sizning takliflaringiz 👆👆👆</b>" , reply_markup=frilans)
+
+
+@dp.message_handler(text="💎 Bal Nima ?")
+async def bal(message: types.Message):
+    await message.answer(f"Ball bu sizning IT 👨‍💻darajangizni ko'rsatib beruvchi sistema 💻bo'lib sizga admin 🪪 tamondan berilgan topshiriqlarni ⌛️baxolab ball beriladi", reply_markup=menuuz)
