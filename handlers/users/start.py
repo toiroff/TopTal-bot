@@ -96,7 +96,7 @@ async def bot_start(message: types.Message):
 @dp.message_handler(text="✅ Mening takliflarim")
 async def bot_start(message: types.Message):
     try:
-        user_id = message.from_user.id
+        user_id = messagemessage.from_user.id
         id_send = db.select_taklifs(Tid=user_id)
         for idsend in id_send:
             sql_id = idsend[2]
@@ -108,4 +108,12 @@ async def bot_start(message: types.Message):
 
 @dp.message_handler(text="💎 Bal Nima ?")
 async def bal(message: types.Message):
-    await message.answer(f"Ball bu sizning IT 👨‍💻darajangizni ko'rsatib beruvchi sistema 💻bo'lib sizga admin 🪪 tamondan berilgan topshiriqlarni ⌛️baxolab ball beriladi", reply_markup=menuuz)
+    await message.answer(f"Ball bu sizning IT 👨‍💻darajangizni ko'rsatib beruvchi sistema \n\n"
+                         f"💻bo'lib sizga admin va buyurtmachilar🪪 tamondan berilgan topshiriqlarni ⌛️baxolab ball beridi.\n"
+                         f"Agar siz bironta buyurtmachudan ishni olib topshirsangiz sizga +10 bal beriladi.\n\n"
+                         f"<b>Darajalar</b>\n"
+                         f"Bu sizni qaysi darajada ekanligingizni belgilaydi. "
+                         f"Agar siz Entry levelda bo'lsangiz sizga osonroq buyurtmalar chiqadi."
+                         f"Darajangizga qarab buyurtmalar chiqadi.\n"
+                         f"\n"
+                         f"Agar siz biz bergan topshiriqlarni mukammal topshirsangiz admin tekshirib ma'qul deb topsa darajangiz oshadi🎓", reply_markup=menuuz)

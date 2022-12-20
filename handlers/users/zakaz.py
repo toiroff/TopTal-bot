@@ -106,6 +106,7 @@ async def select_tasdiq(message: types.Message,state:FSMContext):
     global idm
 
     idm = message.from_user.id
+    # global idm
     await bot.send_message(chat_id=917782961, text=jonatish,reply_markup=tasdiq)
     await message.answer("Buyurtmanigiz bazaga saqlandi, tez orada  frilanserlar siz bilan bot orqali bog'lanadi.",reply_markup=buyurtma)
     await state.finish()
