@@ -40,3 +40,10 @@ async def about(message: types.Message):
                               "<b>Moliya & buxgalteriya</b>\n\n"
 
                               "<b>Engineering & Architecture</b>\n\n", reply_markup=creator)
+
+
+
+
+
+
+

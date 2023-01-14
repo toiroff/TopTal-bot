@@ -41,47 +41,9 @@ async def phone_number(message: types.Message):
 
 
 
-@dp.message_handler(text="📥 Buyurtma olish")
-async def bot_start(message: types.Message, state:FSMContext):
-    malumot = db.select_random_zakaz()
-    print(malumot)
-    for s in malumot:
-        ms_id = s[0]
-        inline_tugma = InlineKeyboardMarkup(
-            inline_keyboard=[[InlineKeyboardButton(text="Taklif kiritish", callback_data=f'taklif{ms_id}')]])
-        await message.answer(text=f"Buyurtma raqami # {s[0]}\n\n" \
-                                  f"Kategoriya: {s[4]}\n\n" \
-                                  f"Proyektning nomi: {s[1]}\n\n" \
-                                  f"Proyektning ta'rifi: {s[2]}\n\n" \
-                                  f"Proyektning narxi: {s[3]} sum\n\n", reply_markup=inline_tugma)
-
-    await message.answer('Tanlang',reply_markup=olish)
 
 
 
-@dp.message_handler(text="✅ Freelancer takliflar")
-async def bot_start(message: types.Message):
-    try:
-        user_id = message.from_user.id
-        id_send = db.select_taklifs(tg_id=user_id)
-        for idsend in id_send:
-            sql_id = idsend[2]
-            await message.answer(f"{sql_id}",reply_markup=buyurtma)
-    except:
-        pass
-    await message.answer(f"<b>✅ Freelancer takliflar 👆👆👆</b>" , reply_markup=buyurtma)
-
-@dp.message_handler(text="✅ Mening takliflarim")
-async def bot_start(message: types.Message):
-    try:
-        user_id = message.from_user.id
-        id_send = db.select_taklifs(Tid=user_id)
-        for idsend in id_send:
-            sql_id = idsend[2]
-            await message.answer(f"{sql_id}",reply_markup=frilans)
-    except:
-        pass
-    await message.answer(f"<b>✅ Sizning takliflaringiz 👆👆👆</b>" , reply_markup=frilans)
 
 
 @dp.message_handler(text="💎 Bal Nima ?")

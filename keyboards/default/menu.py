@@ -1,6 +1,6 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
-from aiogram.types import KeyboardButton,ReplyKeyboardMarkup
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
 from keyboards.default.kategoriya import soxa
 from loader import dp,db
 from states.kategoriya import kategoriya
@@ -8,25 +8,25 @@ from states.kategoriya import kategoriya
 menuuz = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="🧑🏻‍💻 Men Frilanserman"),
-            KeyboardButton(text="👤 Men buyurtmachiman")
+            KeyboardButton(text="💼 Iste'dodlar"),
+            KeyboardButton(text="  ℹ️ Nega TopTal")
         ],
         [
             KeyboardButton(text="📈 Tajriba oshirish"),
             KeyboardButton(text="💎 Bal Nima ?")
         ],
         [
-            KeyboardButton(text="💼 Iste'dodlar"),
-            KeyboardButton(text="  ℹ️ Nega TopTal")
+            KeyboardButton(text="🧑🏻‍💻 I'm Freelancer"),
+            KeyboardButton(text="👥 I'm Client")
         ]
     ],
     resize_keyboard=True
 )
 
-@dp.message_handler(text="🧑🏻‍💻 Men Frilanserman")
+@dp.message_handler(text="🧑🏻‍💻 I'm Freelancer")
 async def bot_start(message: types.Message):
     await message.answer(f"<b>🧑🏻‍💻 Men Frilanserman</b>" , reply_markup=frilans)
-@dp.message_handler(text="👤 Men buyurtmachiman")
+@dp.message_handler(text="👥 I'm Client")
 async def bot_start(message: types.Message):
     await message.answer(f"<b>👤 Men buyurtmachiman</b>" , reply_markup=buyurtma)
 @dp.message_handler(text="🔝 Asosiy Menyu")
@@ -37,14 +37,16 @@ async def bot_start(message: types.Message):
 frilans = ReplyKeyboardMarkup(
     keyboard=[
         [
+            KeyboardButton(text='🔎 Izlash'),
+        ],
+        [
             KeyboardButton(text="📝 Mening  buyurtmalarim"),
-         KeyboardButton(text='📥 Buyurtma olish')
+            KeyboardButton(text='✅ Mening takliflarim'),
         ],
+
         [
-            KeyboardButton(text='✅ Mening takliflarim'), KeyboardButton(text='🔎 Buyurtmani toping'),
-        ],
-        [
-            KeyboardButton(text="⚙️ Sozlamalar")
+            KeyboardButton(text="👤 Mening profilim"),
+            KeyboardButton(text='📥 Buyurtma olish'),
         ],
         [KeyboardButton(text='🔝 Asosiy Menyu')]
     ],
@@ -73,11 +75,18 @@ async def bot_start(message: types.Message):
 # Buyurtmachi ----------------------------------------------------------------------------
 buyurtma=ReplyKeyboardMarkup(
     keyboard=[
-        [KeyboardButton(text='📝 Mening buyurtmalarim'),KeyboardButton(text='📥 Buyurtma yaratish')],
-        [KeyboardButton(text='✅ Freelancer takliflar')],
         [
-            KeyboardButton(text="Sozlamalar⚙")
-        ],[KeyboardButton(text='🔝 Asosiy Menyu')]
+            KeyboardButton(text='📜 Mening buyurtmalarim'),
+            KeyboardButton(text='✅ Freelancer takliflar'),
+        ],
+        [
+            KeyboardButton(text="Mening profilim 👤"),
+            KeyboardButton(text='📥 Buyurtma yaratish'),
+
+        ],
+        [
+            KeyboardButton(text='🔝 Asosiy Menyu')
+        ]
 
     ],
     resize_keyboard=True
@@ -105,10 +114,6 @@ Buyurtma = ReplyKeyboardMarkup(
 )
 # Buyurtma END ----------------------------------------------------------------------------------------
 
-@dp.message_handler(text="⚙️ Sozlamalar")
-async def bot_start(message: types.Message):
-    await message.answer(f"<b>⚙️ Sozlamalar</b>" , reply_markup=sozlamar)
-
 
 @dp.message_handler(text="Kategoriyalar ☑️")
 async def bot_start(message: types.Message):
@@ -127,18 +132,7 @@ async def bot_start(message: types.Message, state:FSMContext):
 
 
 
-@dp.message_handler(text="Raqamni o'zgartirish")
-async def bot_start(message: types.Message):
-    await message.answer(f"<b>Tez kunda...</b>" , reply_markup=sozlamar)
 
-
-nomer_update = ReplyKeyboardMarkup(
-    keyboard=[
-        [KeyboardButton(text="☎️ Telfon jo'nating", request_contact=True)]
-
-    ],
-    resize_keyboard=True
-)
 
 
 royxat = ReplyKeyboardMarkup(
@@ -168,3 +162,17 @@ tasdiqtaklif = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True
 )
+
+
+taklifbutton = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="⬅️ Orqaga")
+        ]
+    ],resize_keyboard=True
+)
+
+inline_tugma2 = InlineKeyboardMarkup(
+    inline_keyboard=[[InlineKeyboardButton(text="✅ Tasdiqlash", callback_data='takliftasdiq'),
+                      InlineKeyboardButton(text="❌ Bekor qilish", callback_data='taklifbekor')],
+                     ])

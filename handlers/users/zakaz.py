@@ -3,7 +3,8 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from loader import dp, bot,db
 from states.states import buyrtma
-from keyboards.default.menu import Buyurtma, tasdiq,buyurtma
+from keyboards.default.menu import Buyurtma, tasdiq, buyurtma, taklifbutton
+
 
 @dp.message_handler(text='📥 Buyurtma yaratish')
 async def select_category(message: types.Message):
@@ -14,10 +15,13 @@ async def select_category(message: types.Message):
 async def select_category(message: types.Message, state=FSMContext):
     project_name = message.text
     await state.update_data({'name': project_name})
-    await message.answer('<b>Proyektning qisqacha nomini yozing.</b>\n\n<i>Misol uchun: Telegram bot, mebellar katalogi</i>')
+    await message.answer('<b>Proyektning qisqacha nomini yozing.</b>\n\n<i>Misol uchun: Telegram bot, mebellar katalogi</i>',reply_markup=taklifbutton)
     await buyrtma.next()
 
-
+@dp.message_handler(state=buyrtma.next,text="⬅️ Orqaga")
+async def bot1(message:types.Message,state:FSMContext):
+    await message.answer(f"<b>👤 Men buyurtmachiman</b>" , reply_markup=buyurtma)
+    await state.finish()
 @dp.message_handler(state=buyrtma.qisqacha_nomi)
 async def select_category(message: types.Message, state=FSMContext):
     qisqacha = message.text
@@ -59,7 +63,7 @@ async def select_category(message: types.Message, state=FSMContext):
     for s in son:
         son = s
     global jonatish
-    jonatish = f"Buyurtma ID : {son}"\
+    jonatish = f"Buyurtma ID : {son}\n"\
                f"Kategoriya: {project_name}\n" \
                f"Proyektning nomi: {project_nomi}\n" \
                f"Proyektning ta'rifi: {project_tarfi}\n" \
@@ -107,8 +111,8 @@ async def select_tasdiq(message: types.Message,state:FSMContext):
 
     idm = message.from_user.id
     # global idm
-    await bot.send_message(chat_id=917782961, text=jonatish,reply_markup=tasdiq)
-    await message.answer("Buyurtmanigiz bazaga saqlandi, tez orada  frilanserlar siz bilan bot orqali bog'lanadi.",reply_markup=buyurtma)
+    await bot.send_message(chat_id="917782961", text=jonatish,reply_markup=tasdiq)
+    await message.answer("Buyurtmangiz tekshiruvda ⏳, tez orada  buyurtmangiz bazag qo'shiladi va sizga habat beriladi.",reply_markup=buyurtma)
     await state.finish()
 
 @dp.message_handler(state=buyrtma.phonenum,text='❌ Bekor qilish')

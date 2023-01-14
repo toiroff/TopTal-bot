@@ -9,10 +9,12 @@ class buyrtma (StatesGroup):
     orqaga = State()
 
 class taklif (StatesGroup):
+    inline = State()
     taklif=State()
     narxi =State()
     aloqa = State()
     tasdiqlash= State()
+    Buyurtmachi = State()
 
 class start (StatesGroup):
     entry = State()

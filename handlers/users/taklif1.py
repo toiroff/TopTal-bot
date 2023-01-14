@@ -7,8 +7,10 @@ from states.states import *
 from keyboards.default.menu import *
 
 
+
+
 @dp.callback_query_handler()
-async def bot_echo(message:types.Message,state:FSMContext):
+async def bot_echo1(message:types.Message,state:FSMContext):
         user_id = message.from_user.id
         malumot = message.data
         await state.update_data({'malumot':malumot})
@@ -65,27 +67,51 @@ async def bot_echo(message: types.Message, state: FSMContext):
     narxi = malumot.get("sum")
     ms_id = malumot.get('ms_id')
     alo = malumot.get("aloqa")
+    global ms_us
     ms_us = alo[1:]
+    await state.update_data({'ms_us':ms_us})
     ekranga_chiqarish = f"{takliff}\n\n" \
-                        f"<b>Proyektning narxi:</b> {narxi}"
-    try:
-        id_send = db.select_taklif(id=ms_id)
-        for idsend in id_send:
-            sql_id = idsend[5]
-            print("Yuborilgan",sql_id)
-            db.taklif_qoshish(Tid=message.from_user.id,
-                              zakaz=f"#{ms_id} Buyurtma uchun taklif\n\n{ekranga_chiqarish}\n\n<b>Frilanserga Aloqa : </b> @{ms_us}", tg_id=sql_id)
-            inline_tugma = InlineKeyboardMarkup(
-                inline_keyboard=[[InlineKeyboardButton(text="Frilanserga Aloqa", url=f"https://t.me/{ms_us}")]])
-            await bot.send_message(chat_id=sql_id, text=f"#{ms_id} Buyurtmangiz uchun taklif\n\n<b>Frilanser taklifi</b>:{ekranga_chiqarish}",reply_markup=inline_tugma)
-    except:
-        pass
+                        f"<b>Proektning narxi</b>\n\n {narxi}"
+
+    id_send = db.select_taklif(id=ms_id)
+    for idsend in id_send:
+
+        sql_id = idsend[5]
+        db.taklif_qoshish(Tid=message.from_user.id,
+                          zakaz=f"#{ms_id} Buyurtma uchun taklif\n\n<b>Frilanser taklifi</b>\n\n{ekranga_chiqarish}\n\n<b>Frilanserga Aloqa : </b> @{ms_us}", tg_id=sql_id,holat='Kutilmoqda ⏳')
+        inline_tugma = InlineKeyboardMarkup(
+            inline_keyboard=[[InlineKeyboardButton(text="Frilanserga Aloqa", url=f"https://t.me/{ms_us}")]])
+        inline_tugma2 = InlineKeyboardMarkup(
+            inline_keyboard=[[InlineKeyboardButton(text="✅ Tasdiqlash", callback_data=f'takliftasdiqlash'),
+                              InlineKeyboardButton(text="❌ Bekor qilish",callback_data=f'taklifbekor')],
+                             ])
+
+        await bot.send_message(chat_id=sql_id, text=f"#{ms_id} Buyurtmangiz uchun taklif\n\n<b>Frilanser taklifi</b>\n\n{ekranga_chiqarish}",reply_markup=inline_tugma)
+
     await bot.send_message(chat_id=user_id,text=f"#{ms_id} <b>Buyurtma bo'yicha taklif buyurtmachiga yuborildi</b>\n\n<i>Taklifingizni Buyurtmachi qabul qilsa sizga aloqa o'rnatadi.</i>",reply_markup=frilans)
+    global idm
+    idm = message.from_user.id
+    await state.update_data({'idm':idm})
     await state.finish()
 
 @dp.message_handler(state=taklif.tasdiqlash,text="❌ Yo'q")
-async def bot_echo(message: types.Message, state: FSMContext):
+async def bot_echo2(message: types.Message, state: FSMContext):
     txt = message.text
     user_id = message.from_user.id
     await bot.send_message(chat_id=user_id,text="Bekor qilindi ❌",reply_markup=frilans)
     await state.finish()
+
+
+# @dp.callback_query_handler(text="takliftasdiqlash")
+# async def bot1(messgae: CallbackQuery):
+#     inline_tugma = InlineKeyboardMarkup(
+#         inline_keyboard=[[InlineKeyboardButton(text="Frilanserga Aloqa", url=f"https://t.me/{ms_us}")]])
+#     inline_tugma2 = InlineKeyboardMarkup(
+#         inline_keyboard=[[InlineKeyboardButton(text="Frilanserga Aloqa", url=f"https://t.me/{messgae.from_user.id}")]])
+#     await messgae.message.edit_text("<b>Buyurtma tasdiqlandi !</h>\n\n"
+#                              "- Buyurtmani o'zingiz frilanser bilan ishni tugatmoqchi bo'lsangiz <i>Frilanserga aloqa</i> tugmasini bosing\n\n"
+#                             "- Frilanserga ishonchingiz bo'lmasa admin bilan buyurtmani tugatishingiz mumkin.Agar admin bilan qilmoqhi bo'lsangiz @UmarMinister ga frilanserni id yoki usernameni yuboring !",reply_markup=inline_tugma)
+#     await bot.send_message(text="<b>Buyurtmachi siz topshirgan taklifni tasdiqladi !</b>\n\n"
+#                                     "- Buyurtmani o'zingiz buyurtmachi bilan ishni tugatmoqchi bo'lsangiz <i>Buyurtmachiga aloqa</i> tugmasini bosing\n\n"
+#                             "- Buyurtmachiga ishonchingiz bo'lmasa admin bilan buyurtmani tugatishingiz mumkin.Agar admin bilan qilmoqhi bo'lsangiz @UmarMinister ga buyurtmachini id yoki usernameni yuboring !",reply_markup=inline_tugma2)
+#

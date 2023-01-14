@@ -1,6 +1,6 @@
 from aiogram.types import KeyboardButton,ReplyKeyboardMarkup
 
-soxa    =ReplyKeyboardMarkup(
+soxa=ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text='IT va dasturlash'),
@@ -11,8 +11,8 @@ soxa    =ReplyKeyboardMarkup(
             KeyboardButton(text='Ijtimoiy tarmoq va reklama')
         ],
         [
-KeyboardButton(text='Tekslar va tarjimalar'),
-KeyboardButton(text='Audio, Video, Tasvirga olish')
+            KeyboardButton(text='Tekslar va tarjimalar'),
+            KeyboardButton(text='Audio, Video, Tasvirga olish')
         ]
 
 

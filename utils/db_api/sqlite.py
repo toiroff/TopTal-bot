@@ -119,7 +119,7 @@ class Database:
         sql = """
         SELECT * FROM royxat
         """
-        return self.execute(sql, fetchall=True)
+        return self.execute(sql, fetchone=True)
 
 
 
@@ -180,13 +180,13 @@ class Database:
 """
         self.execute(sql, commit=True)
 
-    def taklif_qoshish(self, Tid: str= None, zakaz: str = None, tg_id: str = None):
+    def taklif_qoshish(self, Tid: str= None, zakaz: str = None, tg_id: str = None, holat: str = None,buyurtma_id: str = None):
         # SQL_EXAMPLE ="INSERT INTO myfiles_teacher(id,name,email)VALUES(1,"john","john@hgmail.com")"
 
         sql = """
-         INSERT INTO taklif ( Tid, zakaz, tg_id ) VALUES(?, ?, ?)
+         INSERT INTO taklif ( Tid, zakaz, tg_id,holat,buyurtma_id ) VALUES(?,?, ?, ?,?)
          """
-        self.execute(sql, parameters=(Tid, zakaz, tg_id), commit=True)
+        self.execute(sql, parameters=(Tid, zakaz, tg_id,holat,buyurtma_id), commit=True)
 
     def select_taklifs(self, **kwargs):
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
@@ -224,11 +224,48 @@ class Database:
         # SQL_EXAMPLE = "SELECT * FROM myfiles_teacher where id=1 AND Name='John'"
         sql = "SELECT * FROM zakaz WHERE "
         sql, parameters = self.format_args(sql, kwargs)
-
         return self.execute(sql, parameters=parameters, fetchone=True)
+
+    def filterr(self, **kwargs):
+        # SQL_EXAMPLE = "SELECT * FROM myfiles_teacher where id=1 AND Name='John'"
+        sql = "SELECT * FROM royxat WHERE "
+        sql, parameters = self.format_args(sql, kwargs)
+        return self.execute(sql, parameters=parameters, fetchone=True)
+
+    def filter_zakaz(self, **kwargs):
+        # SQL_EXAMPLE = "SELECT * FROM myfiles_teacher where id=1 AND Name='John'"
+        sql = "SELECT * FROM zakaz WHERE "
+        sql, parameters = self.format_args(sql, kwargs)
+        return self.execute(sql, parameters=parameters, fetchall=True)
 
     def delete(self):
         self.execute("DELETE FROM zakaz WHERE TRUE", commit=True)
+
+    def update_nomer(self, number, id):
+        # SQL_EXAMPLE = "UPDATE Users SET email=mail@gmail.com WHERE id=12345"
+        sql = f"""
+        UPDATE royxat
+         SET number=? WHERE id=?
+        """
+        return self.execute(sql, parameters=(number, id), commit=True)
+
+    def update_name(self, name,id):
+        # SQL_EXAMPLE = "UPDATE Users SET email=mail@gmail.com WHERE id=12345"
+        sql = f"""
+        UPDATE royxat
+         SET nick_name=? WHERE id=?
+        """
+        return self.execute(sql, parameters=(name,id), commit=True)
+
+    def delete_zakaz(self):
+        self.execute("DELETE FROM zakaz WHERE TRUE", commit=True)
+
+    def select_id(self, **kwargs):
+           # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
+            sql = "SELECT * FROM zakaz WHERE "
+            sql, parameters = self.format_args(sql, kwargs)
+
+            return self.execute(sql, parameters=parameters, fetchone=True)
 def logger(statement):
     print(f"""
 _____________________________________________________        

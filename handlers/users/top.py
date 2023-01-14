@@ -6,7 +6,7 @@ from aiogram.types import InlineKeyboardButton,InlineKeyboardMarkup
 # Echo bot
 
 
-@dp.message_handler(text='🔎 Buyurtmani toping')
+@dp.message_handler(text='🔎 Izlash')
 async def bot_echo(message: types.Message,state:FSMContext):
         await message.answer('Buyurtma id kiriting')
         await topish.buyurtma_topish.set()
@@ -17,19 +17,16 @@ async def bot_echo(message: types.Message, state: FSMContext):
         await state.update_data({'top': top})
         malumot = await state.get_data()
         topish = malumot.get('top')
-
-        malumot = db.filter(id=topish)
-
-        malumot1 = db.select_random_zakaz()
-        print(malumot)
-        for s in malumot1:
-            ms_id = s[0]
+        try:
+            malumot = db.filter(id=topish)
             inline_tugma = InlineKeyboardMarkup(
-                inline_keyboard=[[InlineKeyboardButton(text="Taklif kiritish", callback_data=f'taklif{ms_id}')]])
-
-        await message.answer(text=f"Buyurtma raqami # {malumot[0]}\n\n" \
+                inline_keyboard=[[InlineKeyboardButton(text="Taklif kiritish", callback_data=f'taklif{malumot[0]}')]])
+            await message.answer(text=f"Buyurtma raqami # {malumot[0]}\n\n" \
                                       f"Kategoriya: {malumot[4]}\n\n" \
                                       f"Proyektning nomi: {malumot[1]}\n\n" \
                                       f"Proyektning ta'rifi: {malumot[2]}\n\n" \
                                       f"Proyektning narxi: {malumot[3]} sum\n\n",reply_markup=inline_tugma)
+        except :
+            await message.answer('<b>Bu id raqamdagi buyurtma mavjud emas!</b>')
+
         await state.finish()
