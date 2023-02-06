@@ -1,4 +1,8 @@
 # TopTal 
-Telegram bot form for international top tal site to be convenient for people
 
-Powered by UmarDeveloper
+👋 Hi, I’m @toiroff
+👀 I’m Muhammadtoirov Muhammadumar
+🌱 I’m middle Back-end
+💞️ I’m looking to collaborate on meta
+📫 How to reach me Telegram : @UmarDeveloper
+📫 Email : umar.upone@gmail.com
