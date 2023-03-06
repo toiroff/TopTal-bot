@@ -5,6 +5,7 @@ class buyrtma (StatesGroup):
     qisqacha_nomi = State()
     project_narxi = State()
     phonenum = State()
+    daraja = State()
     tasdiqlash = State()
     orqaga = State()
 
@@ -25,3 +26,6 @@ class start (StatesGroup):
 
 class topish(StatesGroup):
     buyurtma_topish=State()
+
+class Buyurtmalarim(StatesGroup):
+    tasdishlash = State()

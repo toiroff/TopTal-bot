@@ -29,6 +29,10 @@ profilfrilanser = ReplyKeyboardMarkup(
         ],
         [
             KeyboardButton(text="Raqamni o'zgartirish 📞"),
+            KeyboardButton(text="Kategoriyalar ☑️"),
+
+        ],
+        [
             KeyboardButton(text="Orqaga 🔙")
         ]
     ],resize_keyboard=True

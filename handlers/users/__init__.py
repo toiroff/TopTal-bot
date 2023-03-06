@@ -5,5 +5,7 @@ from . import MyProfil
 from . import Buyurtmachi
 from . import Frilanser
 from . import zakaz
+from . import Darajalar
+
 from  . import taklif1
 from . import echo

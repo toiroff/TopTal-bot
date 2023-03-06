@@ -5,7 +5,7 @@ from loader import dp,db
 from aiogram.dispatcher import FSMContext
 from states.kategoriya import number,Name
 
-@dp.message_handler(text="Mening profilim 👤")
+@dp.message_handler(text="👤  Mening profilim")
 async def my(message : Message):
     await message.reply('Mening profilim 👤',reply_markup=profilbuyurtmachi)
 
@@ -15,9 +15,7 @@ async def b(message:Message):
 @dp.message_handler(text="Mening ma'lumotlarim 💾")
 async def mal(message:Message):
     user_id = message.from_user.id
-    baza = db.filterr(id=user_id)
-    # for idsend in id_send:
-    #     baza = idsend[]
+    baza = db.filter_user(id=user_id)
     await message.answer("<b>TopTal</b> Botdagi ma'lumotlaringiz\n\n\n" 
               f"<b>Telegram id</b>\n\n"
                          f" {baza[0]}\n\n" 
@@ -62,7 +60,7 @@ async def b(message:Message,state:FSMContext):
     except:
         pass
 
-    await message.answer("Muvaffaqiyatli amalga oshirildi ✅",reply_markup=profilbuyurtmachi)
+    await message.answer("Muvaffaqqiyatli amalga oshirildi ✅",reply_markup=profilbuyurtmachi)
     await state.finish()
 
 
@@ -75,7 +73,7 @@ async def my(message : Message):
 @dp.message_handler(text="💾 Mening ma'lumotlarim")
 async def mal(message:Message):
     user_id = message.from_user.id
-    baza = db.filterr(id=user_id)
+    baza = db.filter_user(id=user_id)
     # for idsend in id_send:
     #     baza = idsend[]
     await message.answer("<b>TopTal</b> Botdagi ma'lumotlaringiz\n\n\n" 

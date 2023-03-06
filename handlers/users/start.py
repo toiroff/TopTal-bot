@@ -29,7 +29,7 @@ async def phone_number(message: types.Message):
     phone_usm = message.contact.phone_number
     try:
         db.royxat_qoshish(id=id,
-            number=phone_usm, nick_name=nick_name,ball=+1,daraja="Entry")
+            number=phone_usm, nick_name=nick_name,ball=+1,daraja="Entry",username=message.from_user.username)
     except:
         pass
 

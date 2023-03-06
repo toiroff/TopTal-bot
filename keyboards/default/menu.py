@@ -12,8 +12,8 @@ menuuz = ReplyKeyboardMarkup(
             KeyboardButton(text="  ℹ️ Nega TopTal")
         ],
         [
-            KeyboardButton(text="📈 Tajriba oshirish"),
-            KeyboardButton(text="💎 Bal Nima ?")
+            KeyboardButton(text="📊 Darajalar"),
+            # KeyboardButton(text="📃 Qo'llanma ")
         ],
         [
             KeyboardButton(text="🧑🏻‍💻 I'm Freelancer"),
@@ -37,11 +37,11 @@ async def bot_start(message: types.Message):
 frilans = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text='🔎 Izlash'),
+            KeyboardButton(text='🔎 Search'),
         ],
         [
             KeyboardButton(text="📝 Mening  buyurtmalarim"),
-            KeyboardButton(text='✅ Mening takliflarim'),
+            KeyboardButton(text='📬 Mening takliflarim'),
         ],
 
         [
@@ -53,21 +53,7 @@ frilans = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-sozlamar = ReplyKeyboardMarkup(
-    keyboard=[
-        [
-            KeyboardButton(text="Men haqimda®️")
-        ],
-        [
-            KeyboardButton(text="Kategoriyalar ☑️"),
 
-        ],
-        [
-            KeyboardButton(text="🔙Back"),
-            KeyboardButton(text="🔝 Asosiy Menyu")
-        ]
-    ],resize_keyboard=True
-)
 @dp.message_handler(text="🔙Back")
 async def bot_start(message: types.Message):
     await message.answer(f"<b>🧑🏻‍💻 Men Frilanserman</b>" , reply_markup=frilans)
@@ -76,12 +62,15 @@ async def bot_start(message: types.Message):
 buyurtma=ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text='📜 Mening buyurtmalarim'),
-            KeyboardButton(text='✅ Freelancer takliflar'),
+            KeyboardButton(text="💸 Frilanser bilan ishlar!")
         ],
         [
-            KeyboardButton(text="Mening profilim 👤"),
-            KeyboardButton(text='📥 Buyurtma yaratish'),
+            KeyboardButton(text='🗂 Mening buyurtmalarim'),
+            KeyboardButton(text='👨🏻‍💻 Freelancer takliflar'),
+        ],
+        [
+            KeyboardButton(text="👤  Mening profilim"),
+            KeyboardButton(text='📤 Buyurtma yaratish'),
 
         ],
         [
@@ -164,15 +153,33 @@ tasdiqtaklif = ReplyKeyboardMarkup(
 )
 
 
-taklifbutton = ReplyKeyboardMarkup(
+client_orqaga = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text="⬅️ Orqaga")
         ]
     ],resize_keyboard=True
 )
+frilanser_orqaga = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="⬅️ orqaga")
+        ]
+    ],resize_keyboard=True
+)
 
-inline_tugma2 = InlineKeyboardMarkup(
+inline_tugma = InlineKeyboardMarkup(
     inline_keyboard=[[InlineKeyboardButton(text="✅ Tasdiqlash", callback_data='takliftasdiq'),
                       InlineKeyboardButton(text="❌ Bekor qilish", callback_data='taklifbekor')],
                      ])
+
+zakazdaraja = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Entry"),
+            KeyboardButton(text="Middle"),
+            KeyboardButton(text="Expert")
+        ]
+    ],resize_keyboard=True
+
+)
