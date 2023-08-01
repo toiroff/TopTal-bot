@@ -83,7 +83,7 @@ async def call(message:types.CallbackQuery):
     try:
         buyurtmaid = str(message.message.text)
         slipt = buyurtmaid.split()
-        id = slipt[19]
+        id = slipt[21]
         print(id[1:])
         db.buyurtma_bekor(id=id[1:],Fid=message.from_user.id,holat="✅ Tasdiqlash")
         await message.answer("Muvaffaqqiyatli o'chirildi! ✅",show_alert=True)

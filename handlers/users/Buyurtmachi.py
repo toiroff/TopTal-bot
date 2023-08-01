@@ -44,7 +44,7 @@ async def bots(message:types.Message):
             ms_id = fr[0]
             inline_tugma = InlineKeyboardMarkup(
                 inline_keyboard=[[InlineKeyboardButton(text="O'chirish ❌", callback_data=f'buyurtmabekor')]])
-            await message.answer(text=f"Buyurtma raqami #{mal1[0]}\n\n" 
+            await message.answer(text=f"Buyurtma raqami # {mal1[0]}\n\n" 
                                       f"Kategoriya: <b>{mal1[4]}</b>\n\n" 
                                       f"Proektning nomi: <b>{mal1[1]}</b>\n\n" 
                                       f"Proektning ta'rifi: <b>{mal1[2]}</b>\n\n"
@@ -61,9 +61,10 @@ async def call(messsage:types.CallbackQuery):
 
     buyurtmaid = str(messsage.message.text)
     slipt = buyurtmaid.split()
-    id = slipt[1]
+    id = slipt[3]
     data = id[7:]
-    db.delete_zakaz(id=data,user_id=messsage.from_user.id)
+    print(slipt)
+    db.delete_zakaz(id=id,user_id=messsage.from_user.id)
     await messsage.answer("Muvaffaqqiyatli o'chirildi! ✅",show_alert=True)
     await messsage.message.delete()
 
